@@ -2,7 +2,7 @@ import streamlit as st
 from dotenv import load_dotenv
 from langchain.chains.question_answering import load_qa_chain
 from langchain.schema import AIMessage, HumanMessage
-from langchain_community.vectorstores import FAISS
+from langchain_community.vectorstores import FAISS, Annoy, ScaNN
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 
 try:
@@ -12,7 +12,16 @@ except Exception as e:
 
 
 def load_db():
-    return FAISS.load_local("vectorstore", OpenAIEmbeddings())
+    with open("vectorstore/store_type.txt", mode="r", encoding="utf-8") as f:
+        store_type = f.read()
+    if store_type == "FAISS":
+        return FAISS.load_local("vectorstore")
+    elif store_type == "Annoy":
+        return Annoy.load_local("vectorstore", OpenAIEmbeddings())
+    elif store_type == "ScaNN":
+        return ScaNN.load_local("vectorstore", OpenAIEmbeddings())
+    else:
+        raise ValueError("Unsupported vector store type")
 
 
 def init_page():
