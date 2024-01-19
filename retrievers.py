@@ -50,7 +50,7 @@ def create_vector_store(docs, embeddings):
     # ここではFaissと呼ばれるベクトルDBを利用する
     # Faiss: Facebookが開発した効率的な近似最近傍検索ライブラリ
     db = FAISS.from_documents(docs, embeddings)
-    db.save_local("faiss_store")
+    db.save_local("vectorstore")
     return db
 
 

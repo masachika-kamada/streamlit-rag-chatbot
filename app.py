@@ -12,7 +12,7 @@ except Exception as e:
 
 
 def load_db():
-    return FAISS.load_local("faiss_store", OpenAIEmbeddings())
+    return FAISS.load_local("vectorstore", OpenAIEmbeddings())
 
 
 def init_page():
