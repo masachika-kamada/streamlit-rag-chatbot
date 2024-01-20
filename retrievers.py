@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 from langchain.chains.question_answering import load_qa_chain
 from langchain.text_splitter import CharacterTextSplitter
 from langchain_community.document_loaders import BSHTMLLoader
-from langchain_community.vectorstores import FAISS
+from langchain_community.vectorstores import FAISS, Annoy, ScaNN
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 
 
@@ -47,10 +47,21 @@ def load_embeddings():
 def create_vector_store(docs, embeddings):
     """ドキュメントのベクトルストアを作成する"""
     # Vector stores: ベクトルデータを管理するための機能
-    # ここではFaissと呼ばれるベクトルDBを利用する
-    # Faiss: Facebookが開発した効率的な近似最近傍検索ライブラリ
-    db = FAISS.from_documents(docs, embeddings)
-    db.save_local("faiss_store")
+    # https://python.langchain.com/docs/modules/data_connection/vectorstores/
+    store_type = os.getenv("VECTOR_STORE_TYPE", "FAISS")
+
+    if store_type == "FAISS":
+        db = FAISS.from_documents(docs, embeddings)
+    elif store_type == "Annoy":
+        db = Annoy.from_documents(docs, embeddings)
+    elif store_type == "ScaNN":
+        db = ScaNN.from_documents(docs, embeddings)
+    else:
+        raise ValueError("Unsupported vector store type")
+
+    db.save_local("vectorstore")
+    with open("vectorstore/store_type.txt", mode="w", encoding="utf-8") as f:
+        f.write(store_type)
     return db
 
 

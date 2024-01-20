@@ -1,7 +1,8 @@
 # Streamlit RAG Chatbot
 
 ## Overview
-This is a web application that implements a question-answering system using the Retrieval-Augmented Generation (RAG) model. It combines GPT models with information retrieval techniques to generate appropriate responses to user queries.
+This is a web application that implements a question-answering system using the Retrieval-Augmented Generation (RAG) model.
+It combines GPT models with information retrieval techniques to generate appropriate responses to user queries.
 
 ## Environment Setup
 
@@ -9,11 +10,11 @@ Create a container from VSCode's Dev Containers.
 
 ## Setup Instructions
 
-1. Use the `.env.sample` file as a reference to create a `.env` file and set your OpenAI API key.
+1. Use the `.env.sample` file as a reference to create a `.env` file and set your OpenAI API key and vector store type.
 
 2. Change the URL in the `process_webpage(url)` function in `retrievers.py`.
 
-3. Run `python retrievers.py` to create indexes in the `faiss_store` directory.
+3. Run `python retrievers.py` to create indexes in the `vectorstore` directory.
 
 4. Execute the following command to start the application:
    ```

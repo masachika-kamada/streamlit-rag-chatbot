@@ -14,6 +14,8 @@ altair==5.2.0
     # via streamlit
 annotated-types==0.6.0
     # via pydantic
+annoy==1.17.3
+    # via -r requirements.in
 anyio==4.2.0
     # via
     #   httpx

@@ -3,8 +3,10 @@ python-dotenv
 requests
 
 beautifulsoup4
-faiss-cpu
 lxml
+annoy
+faiss-cpu
+# scann  # tensorflowが必要なので重い
 
 langchain
 langchain_openai
