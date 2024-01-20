@@ -27,7 +27,7 @@ def split_text_to_documents(text):
     """テキストをドキュメントに分割する"""
     text_splitter = CharacterTextSplitter(
         separator="\n\n",
-        chunk_size=200,
+        chunk_size=100,
         chunk_overlap=0,
         length_function=len,
     )
